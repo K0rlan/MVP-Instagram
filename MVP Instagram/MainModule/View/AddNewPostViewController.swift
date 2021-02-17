@@ -86,7 +86,7 @@ class AddNewPostViewController: UIViewController, AddNewPostViewProtocol {
         
         postText.topAnchor.constraint(equalTo: postImage.bottomAnchor, constant: 30).isActive = true
         postText.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36).isActive = true
-        postText.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 36).isActive = true
+        postText.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -36).isActive = true
         
         saveButton.topAnchor.constraint(equalTo: postText.bottomAnchor, constant: 45).isActive = true
         saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true

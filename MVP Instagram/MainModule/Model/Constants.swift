@@ -15,6 +15,8 @@ struct Constants {
     static let comments = UIImage(named: "comments")
     static let imgButton = UIImage(named: "photo")
     static let home = UIImage(named: "home")
+    static let directWhite = UIImage(named: "send_white")
+    static let moreWhite = UIImage(named: "more_white")
     
     static let p1 = UIImage(named: "p1")
     static let p2 = UIImage(named: "p2")

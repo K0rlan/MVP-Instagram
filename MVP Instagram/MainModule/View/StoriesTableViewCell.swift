@@ -7,6 +7,9 @@
 
 import UIKit
 
+protocol StoriesTableViewCellDelegate{
+    func didButtonTapped(image: UIImage, ava: String, name: String)
+}
 
 class StoriesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
@@ -25,9 +28,10 @@ class StoriesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollect
         return collectionView
     }()
     
+    var stories = [Stories(name: "Koko", image: "1", storyImage: Constants.p1!), Stories(name: "Aru", image: "2", storyImage: Constants.p2!), Stories(name: "China", image: "3", storyImage: Constants.p3!), Stories(name: "Samat", image: "4", storyImage: Constants.p4!), Stories(name: "Bola", image: "5", storyImage: Constants.p5!), Stories(name: "Danik", image: "6", storyImage: Constants.p1!), Stories(name: "Yuri", image: "7", storyImage: Constants.p2!)]
     
-    var stories = [Stories(name: "Koko", image: "1", storyImage: Constants.p2!), Stories(name: "Aru", image: "2"), Stories(name: "China", image: "3"), Stories(name: "Samat", image: "4"), Stories(name: "Bola", image: "5"), Stories(name: "Danik", image: "6"), Stories(name: "Yuri", image: "7")]
-    
+    var actionDelegate: StoriesTableViewCellDelegate?
+    var index: Int?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -50,15 +54,14 @@ class StoriesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollect
         return cell
     }
     
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let storyViewController = StoryViewController()
-//
-//        self.navigationController?.pushViewController(storyViewController, animated: true)
-//        storyViewController.setupImage(image: stories[indexPath.row].storyImage!)
-//        let record = stories[indexPath.row]
-//
-//        print(record)
-//    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let story = stories[indexPath.row]
+        if stories[indexPath.row].storyImage != nil{
+        if let delegate = self.actionDelegate{
+            delegate.didButtonTapped(image: story.storyImage!, ava: story.image, name: story.name)
+        }
+        }
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 99, height: 113)

@@ -8,7 +8,7 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    
+  
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
@@ -51,6 +51,8 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+        self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = false
         setNavigationBar()
         setupViews()
         likes = [String](repeating: "heart", count: self.posts.count)
@@ -103,7 +105,8 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate{
             let cell = tableView.dequeueReusableCell(withIdentifier: "stories", for: indexPath) as!
                 StoriesTableViewCell
             cell.contentView.isUserInteractionEnabled = false
-            
+            cell.actionDelegate = self
+//            cell.index = indexPath.row
             return cell
         }else {
             
@@ -126,6 +129,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate{
             return cell
         }
     }
+    
 
     @objc func likeButtonPressed(sender: UIButton){
         presenter.getLikeTags(tag: sender.tag)
@@ -136,5 +140,13 @@ extension MainViewController: MainViewProtocol{
         self.posts = posts
         self.likes = likes
         tableView.reloadData()
+    }
+}
+extension MainViewController: StoriesTableViewCellDelegate{
+    func didButtonTapped(image: UIImage, ava: String, name: String) {
+        let storyViewController = StoryUIViewController()
+//        storyViewController.setImage(image: image)
+        storyViewController.setData(image: image, ava: ava, name: name)
+        self.navigationController?.pushViewController(storyViewController, animated: true)
     }
 }

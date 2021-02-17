@@ -32,7 +32,6 @@ class MainPresenter: MainPresenterProtocol {
     }
     
     func getLikeTags(tag: Int) {
-        print(tag)
         if likes[tag] == "heart"{
             likes[tag] = "pink_heart"
             posts[tag].likes += 1
