@@ -19,7 +19,6 @@
 		E4563D0E25DC763C00FB40FB /* PostsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4563D0D25DC763C00FB40FB /* PostsTableViewCell.swift */; };
 		E48F5D3A25DD0D3000035F20 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48F5D3925DD0D3000035F20 /* TabBar.swift */; };
 		E48F5D3E25DD0E5A00035F20 /* AddNewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48F5D3D25DD0E5A00035F20 /* AddNewPostViewController.swift */; };
-		E48F5D4225DD1DC500035F20 /* StoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48F5D4125DD1DC500035F20 /* StoryViewController.swift */; };
 		E48F5D4B25DD339000035F20 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48F5D4A25DD339000035F20 /* MainPresenter.swift */; };
 		E48F5D4E25DD45F200035F20 /* AddNewPostPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48F5D4D25DD45F200035F20 /* AddNewPostPresenter.swift */; };
 		E48F5D5225DD5A9E00035F20 /* StoryUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48F5D5125DD5A9E00035F20 /* StoryUIViewController.swift */; };
@@ -40,7 +39,6 @@
 		E4563D0D25DC763C00FB40FB /* PostsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsTableViewCell.swift; sourceTree = "<group>"; };
 		E48F5D3925DD0D3000035F20 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		E48F5D3D25DD0E5A00035F20 /* AddNewPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPostViewController.swift; sourceTree = "<group>"; };
-		E48F5D4125DD1DC500035F20 /* StoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryViewController.swift; sourceTree = "<group>"; };
 		E48F5D4A25DD339000035F20 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		E48F5D4D25DD45F200035F20 /* AddNewPostPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPostPresenter.swift; sourceTree = "<group>"; };
 		E48F5D5125DD5A9E00035F20 /* StoryUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryUIViewController.swift; sourceTree = "<group>"; };
@@ -77,7 +75,6 @@
 			isa = PBXGroup;
 			children = (
 				E48F5D4525DD303700035F20 /* MainModule */,
-				E48F5D4125DD1DC500035F20 /* StoryViewController.swift */,
 				E446540925DC221D00064A69 /* Supporting Files */,
 				E446540025DC21C700064A69 /* Info.plist */,
 			);
@@ -217,7 +214,6 @@
 				E48F5D4B25DD339000035F20 /* MainPresenter.swift in Sources */,
 				E446541125DC2FA100064A69 /* Models.swift in Sources */,
 				E48F5D5225DD5A9E00035F20 /* StoryUIViewController.swift in Sources */,
-				E48F5D4225DD1DC500035F20 /* StoryViewController.swift in Sources */,
 				E446541525DC318A00064A69 /* StoriesTableViewCell.swift in Sources */,
 				E4563D0E25DC763C00FB40FB /* PostsTableViewCell.swift in Sources */,
 			);
