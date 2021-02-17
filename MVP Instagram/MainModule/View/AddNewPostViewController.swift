@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddNewPostViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+class AddNewPostViewController: UIViewController, AddNewPostViewProtocol {
     
     lazy var textLabel: UILabel = {
         let label = UILabel()
@@ -44,11 +44,13 @@ class AddNewPostViewController: UIViewController, UIImagePickerControllerDelegat
     
     let pickerController = UIImagePickerController()
     var image: UIImage?
+    var presenter: AddNewPostPresenterProtocol!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         pickerController.delegate = self
         setupViews()
+        presenter = AddNewPostPresenter.init(view: self)
     }
     
     @objc func postImagePressed(_ sender: UIButton){
@@ -63,18 +65,39 @@ class AddNewPostViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     @objc func saveButtonPressed(_ sender: UIButton){
-        guard let img = self.image else { return }
-        guard let text = postText.text else { return }
-        let post = Posts(user: Stories(name: "Koko", image: "1"), postImage: img, postText: text)
-        
-        Post.sharedInstance.arr.append(post)
+        presenter.addNewPost(image: self.image, postText: postText)
         let mainViewController = MainViewController()
         self.navigationController?.pushViewController(mainViewController, animated: true)
     }
     
+    private func setupViews(){
+        [textLabel, postImage, postText, saveButton].forEach {
+            self.view.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        textLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 35).isActive = true
+        textLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        postImage.topAnchor.constraint(equalTo: textLabel.bottomAnchor, constant: 30).isActive = true
+        postImage.widthAnchor.constraint(equalToConstant: 342).isActive = true
+        postImage.heightAnchor.constraint(equalToConstant: 342).isActive = true
+        postImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        postText.topAnchor.constraint(equalTo: postImage.bottomAnchor, constant: 30).isActive = true
+        postText.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36).isActive = true
+        postText.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 36).isActive = true
+        
+        saveButton.topAnchor.constraint(equalTo: postText.bottomAnchor, constant: 45).isActive = true
+        saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        saveButton.widthAnchor.constraint(equalToConstant: 73).isActive = true
+        
+    }
+}
+
+extension AddNewPostViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate{
     func choosePhotoFromLibrary() {
         pickerController.sourceType = .photoLibrary
-        pickerController.delegate = self
         pickerController.allowsEditing = true
         present(pickerController, animated: true, completion: nil)
     }
@@ -82,7 +105,6 @@ class AddNewPostViewController: UIViewController, UIImagePickerControllerDelegat
     func takePhotoWithCamera() {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
             pickerController.sourceType = .camera
-            pickerController.delegate = self
             pickerController.allowsEditing = true
             present(pickerController, animated: true, completion: nil)
         }
@@ -92,46 +114,13 @@ class AddNewPostViewController: UIViewController, UIImagePickerControllerDelegat
             present(alert, animated: true, completion: nil)
         }
     }
-    func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info:
-                                [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
         if let theImage = image {
-            show(image: theImage)
+            postImage.setImage(theImage, for: .normal)
+            self.image = theImage
         }
         dismiss(animated: true, completion: nil)
     }
-    func show(image: UIImage) {
-       
-        postImage.setImage(image, for: .normal)
-        self.image = image
-        
-    }
-    
-    private func setupViews(){
-        [textLabel, postImage, postText, saveButton].forEach {
-            self.view.addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
-
-        textLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 35).isActive = true
-        textLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
-        postImage.topAnchor.constraint(equalTo: textLabel.bottomAnchor, constant: 30).isActive = true
-        postImage.widthAnchor.constraint(equalToConstant: 342).isActive = true
-        postImage.heightAnchor.constraint(equalToConstant: 342).isActive = true
-        postImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-       
-        postText.topAnchor.constraint(equalTo: postImage.bottomAnchor, constant: 30).isActive = true
-        postText.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36).isActive = true
-        postText.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 36).isActive = true
-        
-        saveButton.topAnchor.constraint(equalTo: postText.bottomAnchor, constant: 45).isActive = true
-        saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        saveButton.widthAnchor.constraint(equalToConstant: 73).isActive = true
-       
-    }
-
-    
-
 }
+

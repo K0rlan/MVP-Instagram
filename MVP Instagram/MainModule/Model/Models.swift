@@ -10,6 +10,9 @@ import UIKit
 struct Stories{
     var name: String
     var image: String
+    var storyImage: UIImage?
+//    var storyVideo: String
+    
 }
 
 struct Posts {

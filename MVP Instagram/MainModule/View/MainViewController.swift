@@ -14,7 +14,9 @@ class MainViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
-        
+        tableView.register(StoriesTableViewCell.self, forCellReuseIdentifier: "stories")
+        tableView.register(PostsTableViewCell.self, forCellReuseIdentifier: "posts")
+        tableView.allowsSelection = false
         return tableView
     }()
     lazy var logoButton: UIButton = {
@@ -44,26 +46,22 @@ class MainViewController: UIViewController {
     
     var likes: [String] = []
     
+    var presenter: MainPresenterProtocol!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         setNavigationBar()
         setupViews()
-        tableView.register(StoriesTableViewCell.self, forCellReuseIdentifier: "stories")
-        tableView.register(PostsTableViewCell.self, forCellReuseIdentifier: "posts")
         likes = [String](repeating: "heart", count: self.posts.count)
-        if !Post.sharedInstance.arr.isEmpty{
-            addNew()
-        }
+        presenter = MainPresenter.init(view: self, posts: posts, likes: likes)
+        presenter.addNewPost()
         tableView.reloadData()
     }
+    
     private func setNavigationBar(){
-//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-//        self.navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.backgroundColor = .white
         navigationController?.navigationBar.barTintColor = .white
-        
-        
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoButton)
         navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: directButton), UIBarButtonItem(customView: separatorViewForNavBar),UIBarButtonItem(customView: likesButton)]
@@ -92,13 +90,6 @@ class MainViewController: UIViewController {
         separatorViewForNavBar.widthAnchor.constraint(equalToConstant: 7).isActive = true
         separatorViewForNavBar.heightAnchor.constraint(equalToConstant: 7).isActive = true
     }
-    func addNew(){
-        for newPosts in Post.sharedInstance.arr{
-            posts.append(newPosts)
-            likes.append("heart")
-        }
-        tableView.reloadData()
-    }
 
 }
 
@@ -108,11 +99,11 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate{
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         if indexPath.row == 0{
             let cell = tableView.dequeueReusableCell(withIdentifier: "stories", for: indexPath) as!
                 StoriesTableViewCell
             cell.contentView.isUserInteractionEnabled = false
+            
             return cell
         }else {
             
@@ -129,21 +120,21 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate{
             
             cell.likeButton.addTarget(self, action: #selector(likeButtonPressed), for: .touchUpInside)
             cell.likeButton.setImage(UIImage(named: likes[posts.count - indexPath.row]), for: .normal)
-            
             cell.likeLabel.text = "Нравится: \(post.likes)"
             
             
             return cell
         }
     }
+
     @objc func likeButtonPressed(sender: UIButton){
-        if likes[sender.tag] == "heart"{
-            likes[sender.tag] = "pink_heart"
-            posts[sender.tag].likes += 1
-        }else{
-            likes[sender.tag] = "heart"
-            posts[sender.tag].likes -= 1
-        }
+        presenter.getLikeTags(tag: sender.tag)
+    }
+}
+extension MainViewController: MainViewProtocol{
+    func updateData(posts: [Posts], likes: [String]) {
+        self.posts = posts
+        self.likes = likes
         tableView.reloadData()
     }
 }

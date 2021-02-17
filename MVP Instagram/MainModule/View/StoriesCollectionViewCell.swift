@@ -43,7 +43,7 @@ class StoriesCollectionViewCell: UICollectionViewCell {
         imageView.heightAnchor.constraint(equalToConstant: 85).isActive = true
         imageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        print(imageView.frame.size.height)
+       
         textLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 3).isActive = true
         textLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 4).isActive = true
         textLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true

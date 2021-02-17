@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class StoriesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     lazy var collectionView : UICollectionView = {
@@ -25,13 +26,12 @@ class StoriesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollect
     }()
     
     
-    var stories = [Stories(name: "Koko", image: "1"), Stories(name: "Aru", image: "2"), Stories(name: "China", image: "3"), Stories(name: "Samat", image: "4"), Stories(name: "Bola", image: "5"), Stories(name: "Danik", image: "6"), Stories(name: "Yuri", image: "7")]
+    var stories = [Stories(name: "Koko", image: "1", storyImage: Constants.p2!), Stories(name: "Aru", image: "2"), Stories(name: "China", image: "3"), Stories(name: "Samat", image: "4"), Stories(name: "Bola", image: "5"), Stories(name: "Danik", image: "6"), Stories(name: "Yuri", image: "7")]
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
-        
       }
       
       required init?(coder: NSCoder) {
@@ -50,9 +50,15 @@ class StoriesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollect
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("asd \(indexPath)")
-    }
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        let storyViewController = StoryViewController()
+//
+//        self.navigationController?.pushViewController(storyViewController, animated: true)
+//        storyViewController.setupImage(image: stories[indexPath.row].storyImage!)
+//        let record = stories[indexPath.row]
+//
+//        print(record)
+//    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 99, height: 113)

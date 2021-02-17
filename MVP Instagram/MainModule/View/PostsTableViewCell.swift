@@ -42,7 +42,6 @@ class PostsTableViewCell: UITableViewCell {
     lazy var likeButton: UIButton = {
         let button = UIButton()
         button.setImage(Constants.like, for: .normal)
-        button.addTarget(self, action: #selector(likeButtonPressed), for: .touchUpInside)
         return button
     }()
     
@@ -77,9 +76,6 @@ class PostsTableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    @objc func likeButtonPressed(){
-        print("like")
     }
     
     private func setupViews() {
