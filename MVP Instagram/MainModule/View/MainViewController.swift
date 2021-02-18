@@ -8,7 +8,7 @@
 import UIKit
 
 class MainViewController: UIViewController {
-  
+    
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
@@ -73,7 +73,7 @@ class MainViewController: UIViewController {
             self.view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
-
+        
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
@@ -92,26 +92,24 @@ class MainViewController: UIViewController {
         separatorViewForNavBar.widthAnchor.constraint(equalToConstant: 7).isActive = true
         separatorViewForNavBar.heightAnchor.constraint(equalToConstant: 7).isActive = true
     }
-
+    
 }
 
 extension MainViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0{
             let cell = tableView.dequeueReusableCell(withIdentifier: "stories", for: indexPath) as!
                 StoriesTableViewCell
             cell.contentView.isUserInteractionEnabled = false
             cell.actionDelegate = self
-//            cell.index = indexPath.row
             return cell
         }else {
             
-            let cell = tableView.dequeueReusableCell(withIdentifier: "posts", for: indexPath) as!
-                PostsTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "posts", for: indexPath) as! PostsTableViewCell
             cell.likeButton.tag = posts.count - indexPath.row
             let post = posts[posts.count - indexPath.row]
             cell.postImageView.image = post.postImage
@@ -130,7 +128,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate{
         }
     }
     
-
+    
     @objc func likeButtonPressed(sender: UIButton){
         presenter.getLikeTags(tag: sender.tag)
     }
@@ -143,9 +141,8 @@ extension MainViewController: MainViewProtocol{
     }
 }
 extension MainViewController: StoriesTableViewCellDelegate{
-    func didButtonTapped(image: UIImage, ava: String, name: String) {
+    func didButtonTapped(image: String, ava: String, name: String) {
         let storyViewController = StoryUIViewController()
-//        storyViewController.setImage(image: image)
         storyViewController.setData(image: image, ava: ava, name: name)
         self.navigationController?.pushViewController(storyViewController, animated: true)
     }

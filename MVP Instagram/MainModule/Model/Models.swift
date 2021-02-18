@@ -10,7 +10,7 @@ import UIKit
 struct Stories{
     var name: String
     var image: String
-    var storyImage: UIImage?
+    var storyImage: String?
     var storyVideo: String?
     
 }
@@ -41,7 +41,3 @@ class Post {
     var arr = [Posts]()
 }
 
-class Story {
-    static let sharedInstance = Story()
-    var image = [UIImage]()
-}

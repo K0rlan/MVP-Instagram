@@ -8,12 +8,10 @@
 import Foundation
 
 protocol MainViewProtocol {
-//    send data to view
     func updateData(posts: [Posts], likes: [String])
 }
 
 protocol MainPresenterProtocol {
-//    get data to presenter
     init(view: MainViewProtocol, posts: [Posts],likes: [String])
     func getLikeTags(tag: Int)
     func addNewPost()

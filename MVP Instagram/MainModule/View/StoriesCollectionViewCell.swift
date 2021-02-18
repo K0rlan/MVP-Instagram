@@ -29,11 +29,11 @@ class StoriesCollectionViewCell: UICollectionViewCell {
         setupViews()
        
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func setupViews() {
         [textLabel, imageView].forEach {
             self.addSubview($0)

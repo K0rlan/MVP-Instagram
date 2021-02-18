@@ -28,6 +28,8 @@ class StoryUIViewController: UIViewController {
     
     lazy var avaLabel: UILabel = {
         let label = UILabel()
+        label.font = .boldSystemFont(ofSize: 16)
+        label.textColor = .white
         return label
     }()
     
@@ -94,8 +96,8 @@ class StoryUIViewController: UIViewController {
         storyImage.image = image
     }
     
-    public func setData(image: UIImage, ava: String, name: String){
-        storyImage.image = image
+    public func setData(image: String, ava: String, name: String){
+        storyImage.image =  UIImage(named: image)
         avaLabel.text = name
         avaImageView.image = UIImage(named: ava)
     }
@@ -130,7 +132,6 @@ class StoryUIViewController: UIViewController {
         sendButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -25).isActive = true
         sendButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         
-//        storyTextField.widthAnchor.constraint(equalToConstant: 280).isActive = true
         storyTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         storyTextField.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -25).isActive = true
         storyTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
