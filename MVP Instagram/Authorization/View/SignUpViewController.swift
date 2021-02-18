@@ -196,9 +196,9 @@ extension SignUpViewController: SignUpProtocol{
         view.addSubview(child.view)
         child.didMove(toParent: self)
     }
-    func errorAlert(error: String) {
+    func errorAlert(error: ErrorType) {
         
-        let alertViewController = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
+        let alertViewController = UIAlertController(title: "Error", message: error.rawValue, preferredStyle: .alert)
         alertViewController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         present(alertViewController, animated: true, completion: nil)
     }

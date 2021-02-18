@@ -256,8 +256,8 @@ extension LoginViewController: LoginProtocol{
         self.view.window?.makeKeyAndVisible()
     }
     
-    func errorAlert(error: String) {
-        let alertViewController = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
+    func errorAlert(error: ErrorType) {
+        let alertViewController = UIAlertController(title: "Error", message: error.rawValue, preferredStyle: .alert)
         alertViewController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         present(alertViewController, animated: true, completion: nil)
         

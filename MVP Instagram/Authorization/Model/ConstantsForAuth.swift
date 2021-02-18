@@ -19,3 +19,14 @@ struct ConstantsForAuth {
     static let buttonBackgroundColor = UIColor(cgColor: CGColor(red: 142/255, green: 200/255, blue: 245/205, alpha: 1))   
 }
 
+enum ErrorType: String{
+    case creatinUser = "Error creating user"
+    case savingData = "Error saving user data"
+    case emptyName = "First name is empty"
+    case emptyLastname = "Last name is empty"
+    case emptyEmail = "Email is empty"
+    case emptyPassword = "Password is empty"
+    case incorrectPassword = "Password must include uppercase and lowercase letters, numbers and symbols, also it must be more than 8 characters long."
+    case serverError = "Server error"
+    
+}

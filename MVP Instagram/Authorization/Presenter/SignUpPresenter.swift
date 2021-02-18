@@ -10,7 +10,7 @@ import FirebaseAuth
 import FirebaseFirestore
 
 protocol SignUpProtocol {
-    func errorAlert(error: String)
+    func errorAlert(error: ErrorType)
     func signUpSuccess()
     func startSpinner()
 }
@@ -32,15 +32,15 @@ class SignUpPresenter: SignUpPresenterProtocol {
     func getAuthData(name: String?, surname: String?, email: String?, password: String?) {
         let passwd = NSPredicate(format: "SELF MATCHES %@ ", "^(?=.*[a-z])(?=.*[$@$#!%*?&])[A-Za-z\\d$@$#!%*?&].{8,}")
         if name == ""  {
-            self.view.errorAlert(error: "First name is empty")
+            self.view.errorAlert(error: .emptyName)
         }else if surname == ""  {
-            self.view.errorAlert(error: "Last name is empty")
+            self.view.errorAlert(error: .emptyLastname)
         }else if email == ""  {
-            self.view.errorAlert(error: "Email is empty")
+            self.view.errorAlert(error: .emptyEmail)
         }else if password == ""  {
-            self.view.errorAlert(error: "Password is empty")
+            self.view.errorAlert(error: .emptyPassword)
         }else if !passwd.evaluate(with: password){
-            self.view.errorAlert(error: "Password must include uppercase and lowercase letters, numbers and symbols, also it must be more than 8 characters long.")
+            self.view.errorAlert(error: .incorrectPassword)
         }else{
             guard let email = email else { return }
             guard let password = password else { return }
@@ -54,7 +54,7 @@ class SignUpPresenter: SignUpPresenterProtocol {
         self.view.startSpinner()
         Auth.auth().createUser(withEmail: email, password: password) { (authResult, err) in
             if err != nil {
-                self.view.errorAlert(error: "Error creating user")
+                self.view.errorAlert(error: .creatinUser)
             }else{
 
                 let db = Firestore.firestore()
@@ -65,7 +65,7 @@ class SignUpPresenter: SignUpPresenterProtocol {
                     "uid": authResult!.user.uid
                 ]) { err in
                     if err != nil {
-                        self.view.errorAlert(error: "Error saving user data")
+                        self.view.errorAlert(error: .savingData)
                     }
                 }
                 self.view.signUpSuccess()

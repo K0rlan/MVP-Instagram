@@ -9,8 +9,10 @@ import Foundation
 import FirebaseAuth
 import FirebaseFirestore
 
+
+
 protocol LoginProtocol {
-    func errorAlert(error: String)
+    func errorAlert(error: ErrorType)
     func loginSuccess()
     func startSpinner()
 }
@@ -32,11 +34,11 @@ class LoginPresenter: LoginPresenterProtocol {
     func getAuthData(email: String?, password: String?) {
         let passwd = NSPredicate(format: "SELF MATCHES %@ ", "^(?=.*[a-z])(?=.*[$@$#!%*?&])[A-Za-z\\d$@$#!%*?&].{8,}")
         if email == ""  {
-            self.view.errorAlert(error: "Email is empty")
+            self.view.errorAlert(error: .emptyEmail)
         }else if password == ""  {
-            self.view.errorAlert(error: "Password is empty")
+            self.view.errorAlert(error: .emptyPassword)
         }else if !passwd.evaluate(with: password){
-            self.view.errorAlert(error: "Password must include uppercase and lowercase letters, numbers and symbols, also it must be more than 8 characters long.")
+            self.view.errorAlert(error: .incorrectPassword)
         }else{
             guard let email = email else { return }
             guard let password = password else { return }
@@ -49,7 +51,7 @@ class LoginPresenter: LoginPresenterProtocol {
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
           guard let strongSelf = self else { return }
             if error != nil{
-                strongSelf.view.errorAlert(error: error!.localizedDescription)
+                strongSelf.view.errorAlert(error: .serverError)
             }else{
                 strongSelf.view.loginSuccess()
             }
