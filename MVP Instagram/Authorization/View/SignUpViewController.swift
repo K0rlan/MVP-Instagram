@@ -202,6 +202,11 @@ extension SignUpViewController: SignUpProtocol{
         alertViewController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         present(alertViewController, animated: true, completion: nil)
     }
+    func finishSpinner(){
+        child.willMove(toParent: nil)
+        child.view.removeFromSuperview()
+        child.removeFromParent()
+    }
     
     func signUpSuccess() {
         let home = TabBar()

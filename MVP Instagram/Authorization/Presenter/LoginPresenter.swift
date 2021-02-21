@@ -15,6 +15,7 @@ protocol LoginProtocol {
     func errorAlert(error: ErrorType)
     func loginSuccess()
     func startSpinner()
+    func finishSpinner()
 }
 
 protocol LoginPresenterProtocol {
@@ -32,7 +33,7 @@ class LoginPresenter: LoginPresenterProtocol {
     }
     
     func getAuthData(email: String?, password: String?) {
-        let passwd = NSPredicate(format: "SELF MATCHES %@ ", "^(?=.*[a-z])(?=.*[$@$#!%*?&])[A-Za-z\\d$@$#!%*?&].{8,}")
+        let passwd = NSPredicate(format: "SELF MATCHES %@ ", "^(?=.*[a-z])(?=.*[$@$#!%*?&,.])[A-Za-z\\d$@$#!%*?&,.].{8,}")
         if email == ""  {
             self.view.errorAlert(error: .emptyEmail)
         }else if password == ""  {
@@ -52,11 +53,12 @@ class LoginPresenter: LoginPresenterProtocol {
           guard let strongSelf = self else { return }
             if error != nil{
                 strongSelf.view.errorAlert(error: .serverError)
+                strongSelf.view.finishSpinner()
             }else{
                 strongSelf.view.loginSuccess()
             }
         }
     }
-    
+   
     
 }

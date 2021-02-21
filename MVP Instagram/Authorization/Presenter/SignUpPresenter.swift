@@ -13,6 +13,7 @@ protocol SignUpProtocol {
     func errorAlert(error: ErrorType)
     func signUpSuccess()
     func startSpinner()
+    func finishSpinner()
 }
 
 protocol SignUpPresenterProtocol {
@@ -30,7 +31,7 @@ class SignUpPresenter: SignUpPresenterProtocol {
     }
     
     func getAuthData(name: String?, surname: String?, email: String?, password: String?) {
-        let passwd = NSPredicate(format: "SELF MATCHES %@ ", "^(?=.*[a-z])(?=.*[$@$#!%*?&])[A-Za-z\\d$@$#!%*?&].{8,}")
+        let passwd = NSPredicate(format: "SELF MATCHES %@ ", "^(?=.*[a-z])(?=.*[$@$#!%*?&,.])[A-Za-z\\d$@$#!%*?&,.].{8,}")
         if name == ""  {
             self.view.errorAlert(error: .emptyName)
         }else if surname == ""  {
@@ -55,6 +56,7 @@ class SignUpPresenter: SignUpPresenterProtocol {
         Auth.auth().createUser(withEmail: email, password: password) { (authResult, err) in
             if err != nil {
                 self.view.errorAlert(error: .creatinUser)
+                self.view.finishSpinner()
             }else{
 
                 let db = Firestore.firestore()
@@ -65,6 +67,7 @@ class SignUpPresenter: SignUpPresenterProtocol {
                     "uid": authResult!.user.uid
                 ]) { err in
                     if err != nil {
+                        self.view.finishSpinner()
                         self.view.errorAlert(error: .savingData)
                     }
                 }

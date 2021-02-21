@@ -28,7 +28,7 @@ class StoriesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollect
         return collectionView
     }()
     
-    var stories = [Stories(name: "Koko", image: "1", storyImage: "p1"), Stories(name: "Aru", image: "2", storyImage: "p2"), Stories(name: "China", image: "3", storyImage: "p3"), Stories(name: "Samat", image: "4", storyImage: "p4!"), Stories(name: "Bola", image: "5", storyImage: "p5"), Stories(name: "Danik", image: "6", storyImage: "p1"), Stories(name: "Yuri", image: "7", storyImage: "p2")]
+    var stories = [Stories(name: "Koko", image: "1", storyImage: "p1"), Stories(name: "Aru", image: "2", storyImage: "p2"), Stories(name: "China", image: "3", storyImage: "p3"), Stories(name: "Samat", image: "4", storyImage: "p4"), Stories(name: "Bola", image: "5", storyImage: "p5"), Stories(name: "Danik", image: "6", storyImage: "p1"), Stories(name: "Yuri", image: "7", storyImage: "p2")]
     
     var actionDelegate: StoriesTableViewCellDelegate?
     var index: Int?

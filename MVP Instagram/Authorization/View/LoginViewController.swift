@@ -250,6 +250,13 @@ extension LoginViewController: LoginProtocol{
         child.didMove(toParent: self)
     }
     
+    func finishSpinner(){
+        child.willMove(toParent: nil)
+        child.view.removeFromSuperview()
+        child.removeFromParent()
+    }
+    
+    
     func loginSuccess() {
         let home = TabBar()
         self.view.window?.rootViewController = home
